@@ -1,0 +1,19 @@
+{
+  "name": "toy-robot-simulator",
+  "version": "1.0.0",
+  "description": "Test task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schernaya/toy-robot-simulator.git"
+  },
+  "author": "Sophia Chernaya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/schernaya/toy-robot-simulator/issues"
+  },
+  "homepage": "https://github.com/schernaya/toy-robot-simulator#readme"
+}
