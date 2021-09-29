@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/schernaya/toy-robot-simulator.git"
   },
+  "type": "module",
   "author": "Sophia Chernaya",
   "license": "ISC",
   "bugs": {
