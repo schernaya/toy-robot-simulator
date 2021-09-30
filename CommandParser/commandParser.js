@@ -1,16 +1,23 @@
-import { DIRECTIONS, COMMANDS, CHARACTERS } from '../common/constants/constants.js';
+import {
+  CHARACTERS
+} from '../common/constants/constants.js';
+import {
+  isCorrectPlaceCommand,
+  isCorrectCommand,
+  isPlaceCommandFirst
+} from '../validations/index.js';
 
 class CommandParser {
-  parseArguments(args, cb) {
-    const parsedInput = args.split(CHARACTERS.NEW_LINE).map((commandLine) => {
-      const unifiedCommandLine = commandLine.toLowerCase().replace(CHARACTERS.CARRIAGE, '');
-      const parsedCommand = this.parseCommandWithArguments(unifiedCommandLine);
+  parseArguments(dataFromFile, cb) {
+    const parsedCommands = dataFromFile.split(CHARACTERS.NEW_LINE)
+      .map((commandLine) => {
+        const unifiedCommandLine = commandLine.toLowerCase().replace(CHARACTERS.CARRIAGE, '');
+        const parsedCommand = this.parseCommandWithArguments(unifiedCommandLine);
 
-      return parsedCommand;
-    });
+        return parsedCommand;
+      });
 
-    const commands = Object.values(COMMANDS);
-    const correctCommands = parsedInput.filter(command => commands.includes(command.command));
+    const correctCommands = parsedCommands.filter(command => isCorrectCommand(command));
 
     cb(null, correctCommands);
   }
@@ -19,7 +26,7 @@ class CommandParser {
     const commandsInLine = commandLine.split(CHARACTERS.SPACE);
     const [firstCommandInLine, commandArguments] = commandsInLine;
 
-    const isPlaceFirst = commandsInLine.length && firstCommandInLine === COMMANDS.PLACE;
+    const isPlaceFirst = isPlaceCommandFirst(firstCommandInLine);
     const commandObject = isPlaceFirst ? {
       command: firstCommandInLine,
       arguments: this.parsePlaceArguments(commandArguments),
@@ -37,9 +44,9 @@ class CommandParser {
     const parsedX = parseInt(x);
     const parsedY = parseInt(y);
 
-    const directions = Object.keys(DIRECTIONS);
-    const isCorrectPlaceCommand = !isNaN(parsedX) && !isNaN(parsedY) && directions.includes(direction);
-    const validatedPlaceArguments = isCorrectPlaceCommand ? [parsedX, parsedY, direction] : null;
+    const parsedPlaceArguments = [parsedX, parsedY, direction];
+    const correctPlaceCommand = isCorrectPlaceCommand(parsedPlaceArguments);
+    const validatedPlaceArguments = correctPlaceCommand ? parsedPlaceArguments : null;
 
     return validatedPlaceArguments;
   };

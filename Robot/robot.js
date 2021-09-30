@@ -1,4 +1,14 @@
-import { DIRECTION, DIRECTIONS, TABLE_SIZE, CHARACTERS } from '../common/constants/constants.js';
+import {
+  DIRECTION,
+  DIRECTIONS,
+  CHARACTERS
+} from '../common/constants/constants.js';
+import {
+  isCoordinatesCorrect,
+  isXCoordinateCorrect,
+  isYCoordinateCorrect,
+  isDirectionCorrect,
+} from '../validations/index.js';
 
 class Robot {
   constructor() {
@@ -12,31 +22,30 @@ class Robot {
   }
 
   place(positionParams) {
-    const [x, y, direction] = positionParams;
+    if (positionParams) {
+      const [x, y, direction] = positionParams;
 
-    if (x > TABLE_SIZE.x || y > TABLE_SIZE.y) {
-      this.isPlaced = false;
-      return;
+      const isXCorrect = isXCoordinateCorrect(x);
+      const isYCorrect = isYCoordinateCorrect(y);
+
+      if (!isXCorrect || !isYCorrect) {
+        this.isPlaced = false;
+        return;
+      }
+
+      this.position = { x, y };
+      this.direction = direction;
+      this.isPlaced = true;
     }
-
-    this.position = { x, y };
-    this.direction = direction;
-    this.isPlaced = true;
   }
 
   report() {
-    if (!this.isPlaced) {
-      return;
+    if (this.isPlaced) {
+      console.log([
+        this.position.x, this.position.y,
+        this.direction.toUpperCase()
+      ].join(CHARACTERS.COMMA));
     }
-
-    console.log([this.position.x, this.position.y, this.direction.toUpperCase()].join(CHARACTERS.COMMA));
-  }
-
-  isPositionCorrect(coordinates) {
-    const isXCorrect = coordinates.x < TABLE_SIZE.y && coordinates.x < TABLE_SIZE.x && coordinates.x >= 0;
-    const isYCorrect = coordinates.y < TABLE_SIZE.y && coordinates.y < TABLE_SIZE.x && coordinates.y >= 0;
-
-    return isXCorrect && isYCorrect;
   }
 
   move() {
@@ -44,30 +53,31 @@ class Robot {
       return;
     }
 
-    let newPosition = { x: this.position.x, y: this.position.y };
+    let newPosition = {
+      x: this.position.x,
+      y: this.position.y
+    };
 
     const step = DIRECTION[this.direction].step;
     const isWestOrEast = this.direction == DIRECTIONS.west || this.direction == DIRECTIONS.east;
 
     isWestOrEast ? newPosition.x += step : newPosition.y += step;
 
-    if (this.isPositionCorrect(newPosition)) {
+    if (isCoordinatesCorrect(newPosition)) {
       this.position = newPosition;
     }
   }
 
   left() {
-    if (!this.isPlaced) {
-      return;
+    if (this.isPlaced) {
+      this.direction = DIRECTION[this.direction].left;
     }
-    this.direction = DIRECTION[this.direction].left;
   }
 
   right() {
-    if (!this.isPlaced) {
-      return;
+    if (this.isPlaced) {
+      this.direction = DIRECTION[this.direction].right;
     }
-    this.direction = DIRECTION[this.direction].right;
   }
 
   executeCommands(commands) {

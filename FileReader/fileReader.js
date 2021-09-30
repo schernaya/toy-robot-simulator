@@ -14,7 +14,9 @@ class FileReader {
         return cb(new Error(ERRORS.FILE_DOESNT_EXIST));
       }
 
-      dataFromFile.length ? cb(null, dataFromFile) : cb(new Error(ERRORS.FILE_IS_EMPTY));
+      dataFromFile.length ?
+        cb(null, dataFromFile) :
+        cb(new Error(ERRORS.FILE_IS_EMPTY));
     });
   }
 }
