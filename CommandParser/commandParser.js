@@ -1,70 +1,45 @@
-export default class CommandParser {
-    parseArguments(args, cb) {
-        if (!args.length) {
-            return cb(new Error('Must give robot command'));
-        }
-        
-        console.log('Commands:')
-        const parsedInput = args.split('\n').map((commands) => {
-                console.log(commands);
-                return this.parseCommands(commands.toLowerCase().replace('\r',''));
-            }).filter(x => !!x);
+class CommandParser {
+  parseArguments(args, cb) {
+    const parsedInput = args.split('\n').map((commandLine) => {
+      const unifiedCommandLine = commandLine.toLowerCase().replace('\r', '');
+      const parsedCommand = this.parseCommandWithArguments(unifiedCommandLine);
 
-        cb(null, parsedInput);
-    }
+      return parsedCommand;
+    });
 
-    parseCommands(commands) {
-        const commandsList = commands.split(' ');
-        const firstCommand = commandsList[0];
+    const correctCommands = parsedInput.filter(command => !!command);
+    cb(null, correctCommands);
+  }
 
-        const isPlaceFirst = commandsList.length && firstCommand === 'place';
-        const commandsObj = isPlaceFirst ? this.initPlacement(commandsList) : this.inputCommand(commands);
+  parseCommandWithArguments(commandLine) {
+    const commandsInLine = commandLine.split(' ');
+    const [firstCommandInLine, commandArguments] = commandsInLine;
 
-        return commandsObj;
-    }
-
-    initPlacement(position) {
-        const positionList = position[1].split(',');
-
-        const x = parseInt(positionList[0]);
-        const y = parseInt(positionList[1]);
-        const direction = positionList[2];
-
-        const isCorrectPlaceCommand = !isNaN(x) && !isNaN(y) && directions.includes(direction);
-        const command = isCorrectPlaceCommand ? {
-            command: 'place',
-            args: [x, y, direction]
-        } : null;
-       
-        return command;
+    const isPlaceFirst = commandsInLine.length && firstCommandInLine === 'place';
+    const commandObject = isPlaceFirst ? {
+      command: firstCommandInLine,
+      arguments: this.parsePlaceArguments(commandArguments),
+    } : {
+      command: commandLine
     };
 
-    inputCommand(allCommands) {
-        switch (allCommands) {
-            case 'move':
-                return {
-                    command: 'move'
-                };
-            case 'left':
-                return {
-                    command: 'rotate',
-                    args: 'left'
-                };
-            case 'right':
-                return {
-                    command: 'rotate',
-                    args: 'right'
-                };
-            case 'report':
-                return {
-                    command: 'report'
-                };
-            default:
-                return null;
-        }
-    }
+    return commandObject;
+  }
+
+  parsePlaceArguments(commandArguments) {
+    const placeArguments = commandArguments.split(',');
+    const [x, y, direction] = placeArguments;
+
+    const parsedX = parseInt(x);
+    const parsedY = parseInt(y);
+
+    const isCorrectPlaceCommand = !isNaN(parsedX) && !isNaN(parsedY) && directions.includes(direction);
+    const validatedPlaceArguments = isCorrectPlaceCommand ? [parsedX, parsedY, direction] : null;
+
+    return validatedPlaceArguments;
+  };
 }
 
-const directions = ['north', 'south', 'west', 'east']
+const directions = ['north', 'south', 'west', 'east'];
 
-// module.exports = CommandParser;
+export default CommandParser;

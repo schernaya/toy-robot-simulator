@@ -2,13 +2,8 @@ import app from './app.js';
 
 const fileName = process.argv[2];
 
-app.runRobotApp(fileName, (err, toyRobot) => {
+app.runRobotApp(fileName, (err) => {
   if (err) {
-    console.log('ERROR:' + ' ' + (err.message));
-    return;
+    console.log('ERROR: ' + err.message);
   }
-
-//   if (!toyRobot.isPlaced) {
-//     console.log('Robot placement is unsuccessful');
-//   }
 });

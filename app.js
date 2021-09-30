@@ -1,6 +1,6 @@
-import Robot from './Robot/robot.js';
-import FileReader from './FileReader/fileReader.js';
-import CommandParser from './CommandParser/commandParser.js';
+import Robot from './robot/robot.js';
+import FileReader from './fileReader/fileReader.js';
+import CommandParser from './commandParser/commandParser.js';
 
 const fileReader = new FileReader();
 const commandParser = new CommandParser();
@@ -10,31 +10,36 @@ const robot = new Robot();
 const app = {};
 
 const readParseFile = (fileName, cb) => {
-  fileReader.readInputFile(fileName, (err, fileData) => {
-    if (err) {
-        cb(err);
-        return;
-    }
-
-    commandParser.parseArguments(fileData, (err, commandsList) => {
-        if (err) {
-            cb(err);
-            return;
-        }
-        cb(null, commandsList);
-    })
-  });
-};
-
-app.runRobotApp = (fileName, cb) => {
-  readParseFile(fileName, (err, commandsList) => {
+  fileReader.readInputFile(fileName, (err, dataFromFile) => {
     if (err) {
       cb(err);
       return;
     }
 
-    robot.executeCommands(commandsList);
-    cb(null, robot);
+    commandParser.parseArguments(dataFromFile, (err, listOfCommands) => {
+      if (err) {
+        cb(err);
+        return;
+      }
+      cb(null, listOfCommands);
+    })
+  });
+};
+
+app.runRobotApp = (fileName, cb) => {
+  // const listOfCommands = readParseFile(fileName);
+  // if (listOfCommands) {
+  //   robot.executeCommands(listOfCommands);
+  // }
+
+  readParseFile(fileName, (err, listOfCommands) => {
+    if (err) {
+      cb(err);
+      return;
+    }
+
+    robot.executeCommands(listOfCommands);
+    // cb(null);
   });
 };
 
