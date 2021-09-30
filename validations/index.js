@@ -7,5 +7,4 @@ export {
   isCorrectPlaceCommand,
   isCorrectCommand,
   isPlaceCommandFirst,
-  isDirectionCorrect,
 } from './command.js';

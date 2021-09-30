@@ -17,7 +17,3 @@ export const isCorrectCommand = (command) => {
 export const isPlaceCommandFirst = (command) => {
   return command === COMMANDS.PLACE;
 };
-
-export const isDirectionCorrect = (direction) => {
-  return command === COMMANDS.PLACE;
-};

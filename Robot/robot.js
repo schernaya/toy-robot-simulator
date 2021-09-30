@@ -7,7 +7,6 @@ import {
   isCoordinatesCorrect,
   isXCoordinateCorrect,
   isYCoordinateCorrect,
-  isDirectionCorrect,
 } from '../validations/index.js';
 
 class Robot {
