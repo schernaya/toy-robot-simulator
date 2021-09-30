@@ -1,27 +1,4 @@
-const TABLE_SIZE = { x: 5, y: 5 };
-
-const DIRECTIONS = {
-  north: {
-    step: 1,
-    left: 'west',
-    right: 'east',
-  },
-  south: {
-    step: -1,
-    left: 'east',
-    right: 'west'
-  },
-  west: {
-    step: -1,
-    left: 'south',
-    right: 'north'
-  },
-  east: {
-    step: 1,
-    left: 'north',
-    right: 'south'
-  },
-};
+import { DIRECTION, DIRECTIONS, TABLE_SIZE, CHARACTERS } from '../common/constants/constants.js';
 
 class Robot {
   constructor() {
@@ -52,7 +29,7 @@ class Robot {
       return;
     }
 
-    console.log([this.position.x, this.position.y, this.direction.toUpperCase()].join(','));
+    console.log([this.position.x, this.position.y, this.direction.toUpperCase()].join(CHARACTERS.COMMA));
   }
 
   isPositionCorrect(coordinates) {
@@ -69,8 +46,8 @@ class Robot {
 
     let newPosition = { x: this.position.x, y: this.position.y };
 
-    const step = DIRECTIONS[this.direction].step;
-    const isWestOrEast = this.direction == 'west' || this.direction == 'east';
+    const step = DIRECTION[this.direction].step;
+    const isWestOrEast = this.direction == DIRECTIONS.west || this.direction == DIRECTIONS.east;
 
     isWestOrEast ? newPosition.x += step : newPosition.y += step;
 
@@ -83,14 +60,14 @@ class Robot {
     if (!this.isPlaced) {
       return;
     }
-    this.direction = DIRECTIONS[this.direction].left;
+    this.direction = DIRECTION[this.direction].left;
   }
 
   right() {
     if (!this.isPlaced) {
       return;
     }
-    this.direction = DIRECTIONS[this.direction].right;
+    this.direction = DIRECTION[this.direction].right;
   }
 
   executeCommands(commands) {

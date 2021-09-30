@@ -27,11 +27,6 @@ const readParseFile = (fileName, cb) => {
 };
 
 app.runRobotApp = (fileName, cb) => {
-  // const listOfCommands = readParseFile(fileName);
-  // if (listOfCommands) {
-  //   robot.executeCommands(listOfCommands);
-  // }
-
   readParseFile(fileName, (err, listOfCommands) => {
     if (err) {
       cb(err);
@@ -39,7 +34,6 @@ app.runRobotApp = (fileName, cb) => {
     }
 
     robot.executeCommands(listOfCommands);
-    // cb(null);
   });
 };
 
