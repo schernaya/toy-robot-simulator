@@ -1,10 +1,15 @@
 import fs from 'fs';
 import { ERRORS, ENCODING } from '../common/constants/constants.js';
+import { isCorrectExtension } from '../validations/index.js';
 
 class FileReader {
   readInputFile(fileName, cb) {
     if (!fileName) {
       return cb(new Error(ERRORS.NO_FILE_NAME));
+    }
+
+    if (!isCorrectExtension(fileName)) {
+      return cb(new Error(ERRORS.UNALLOWED_EXTENSION));
     }
 
     fs.readFile(fileName, { encoding: ENCODING }, (
