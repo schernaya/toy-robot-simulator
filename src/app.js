@@ -1,6 +1,6 @@
 import Robot from './robot/robot.js';
-import FileReader from './fileReader/fileReader.js';
-import CommandParser from './commandParser/commandParser.js';
+import FileReader from './file-reader/file-reader.js';
+import CommandParser from './command-parser/command-parser.js';
 
 const fileReader = new FileReader();
 const commandParser = new CommandParser();
@@ -16,13 +16,7 @@ const readParseFile = (fileName, cb) => {
       return;
     }
 
-    commandParser.parseArguments(dataFromFile, (err, listOfCommands) => {
-      if (err) {
-        cb(err);
-        return;
-      }
-      cb(null, listOfCommands);
-    })
+    commandParser.parseCommands(dataFromFile, cb);
   });
 };
 

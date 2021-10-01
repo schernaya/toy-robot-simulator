@@ -2,13 +2,12 @@ import {
   CHARACTERS
 } from '../common/constants/constants.js';
 import {
-  isCorrectPlaceCommand,
   isCorrectCommand,
   isPlaceCommandFirst
 } from '../validations/index.js';
 
 class CommandParser {
-  parseArguments(dataFromFile, cb) {
+  parseCommands(dataFromFile, cb) {
     const parsedCommands = dataFromFile.split(CHARACTERS.NEW_LINE)
       .map((commandLine) => {
         const unifiedCommandLine = commandLine.toLowerCase().replace(CHARACTERS.CARRIAGE, '');
@@ -45,10 +44,7 @@ class CommandParser {
     const parsedY = parseInt(y);
 
     const parsedPlaceArguments = [parsedX, parsedY, direction];
-    const correctPlaceCommand = isCorrectPlaceCommand(parsedPlaceArguments);
-    const validatedPlaceArguments = correctPlaceCommand ? parsedPlaceArguments : null;
-
-    return validatedPlaceArguments;
+    return parsedPlaceArguments;
   };
 }
 

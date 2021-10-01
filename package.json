@@ -4,7 +4,7 @@
   "description": "Test task",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "react-scripts test --env=jsdom"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/schernaya/toy-robot-simulator/issues"
   },
-  "homepage": "https://github.com/schernaya/toy-robot-simulator#readme"
+  "homepage": "https://github.com/schernaya/toy-robot-simulator#readme",
+  "dependencies": {
+    "react-scripts": "4.0.3"
+  }
 }
