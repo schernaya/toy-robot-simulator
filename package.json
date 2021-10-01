@@ -4,6 +4,7 @@
   "description": "Test task",
   "main": "index.js",
   "scripts": {
+    "start": "node ./src/index.console.js",
     "test": "react-scripts test --env=jsdom"
   },
   "repository": {

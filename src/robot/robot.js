@@ -87,9 +87,13 @@ class Robot {
     return this;
   }
 
+  executeCommand(command) {
+    this[command.command](command.arguments);
+  }
+
   executeCommands(commands) {
     for (const command of commands) {
-      this[command.command](command.arguments);
+      this.executeCommand(command);
     }
   }
 }
