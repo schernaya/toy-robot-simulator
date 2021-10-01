@@ -29,15 +29,13 @@ class Robot {
 
       if (!isXCorrect || !isYCorrect) {
         this.isPlaced = false;
-        return this;
+        return;
       }
 
       this.position = { x, y };
       this.direction = direction;
       this.isPlaced = true;
-
     }
-    return this;
   }
 
   report() {
@@ -47,13 +45,11 @@ class Robot {
         this.direction.toUpperCase()
       ].join(CHARACTERS.COMMA));
     }
-
-    return this;
   }
 
   move() {
     if (!this.isPlaced) {
-      return this;
+      return;
     }
 
     let newPosition = {
@@ -69,22 +65,18 @@ class Robot {
     if (isCoordinatesCorrect(newPosition)) {
       this.position = newPosition;
     }
-
-    return this;
   }
 
   left() {
     if (this.isPlaced) {
       this.direction = DIRECTION[this.direction].left;
     }
-    return this;
   }
 
   right() {
     if (this.isPlaced) {
       this.direction = DIRECTION[this.direction].right;
     }
-    return this;
   }
 
   executeCommand(command) {
