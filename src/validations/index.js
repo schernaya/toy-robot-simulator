@@ -4,7 +4,7 @@ export {
   isYCoordinateCorrect
 } from './robot.js';
 export {
-  isCorrectPlaceCommand,
   isCorrectCommand,
+  isCorrectArguments,
   isPlaceCommandFirst,
 } from './command.js';

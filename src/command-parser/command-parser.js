@@ -7,18 +7,25 @@ import {
 } from '../validations/index.js';
 
 class CommandParser {
-  parseCommands(dataFromFile, cb) {
-    const parsedCommands = dataFromFile.split(CHARACTERS.NEW_LINE)
-      .map((commandLine) => {
-        const unifiedCommandLine = commandLine.toLowerCase().replace(CHARACTERS.CARRIAGE, '');
-        const parsedCommand = this.parseCommandWithArguments(unifiedCommandLine);
+  parseDataFromFile(dataFromFile, cb) {
+    const parsedCommands = this.parseCommands(dataFromFile);
 
-        return parsedCommand;
-      });
+    cb(null, parsedCommands);
+  };
 
-    const correctCommands = parsedCommands.filter(command => isCorrectCommand(command));
+  parseCommands(parsedLines) {
+    const parsedCommands = parsedLines.split(CHARACTERS.NEW_LINE);
 
-    cb(null, correctCommands);
+    const commands = parsedCommands.map((commandLine) => {
+      const unifiedCommandLine = commandLine.toLowerCase().replace(CHARACTERS.CARRIAGE, '');
+      const parsedCommand = this.parseCommandWithArguments(unifiedCommandLine);
+
+      return parsedCommand;
+    });
+
+    const correctCommands = commands.filter(command => !!command);
+
+    return correctCommands;
   }
 
   parseCommandWithArguments(commandLine) {
@@ -33,7 +40,7 @@ class CommandParser {
       command: commandLine
     };
 
-    return commandObject;
+    return isCorrectCommand(commandObject) ? commandObject : null;
   }
 
   parsePlaceArguments(commandArguments) {
@@ -44,6 +51,7 @@ class CommandParser {
     const parsedY = parseInt(y);
 
     const parsedPlaceArguments = [parsedX, parsedY, direction];
+
     return parsedPlaceArguments;
   };
 }

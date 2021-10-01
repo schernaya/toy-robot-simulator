@@ -2,11 +2,14 @@ import {
   COMMANDS,
   DIRECTIONS,
 } from '../common/constants/constants.js';
+import { isCoordinatesCorrect } from './robot.js';
 
-export const isCorrectPlaceCommand = (placeArguments) => {
+export const isCorrectArguments = (placeArguments) => {
   const [x, y, direction] = placeArguments;
   const correctDirection = isDirectionCorrect(direction);
-  return !isNaN(x) && !isNaN(y) && correctDirection;
+  const correctCoordinates = isCoordinatesCorrect({ x, y });
+
+  return correctCoordinates && correctDirection;
 };
 
 export const isDirectionCorrect = (direction) => {
@@ -24,9 +27,8 @@ export const isCorrectCommand = (command) => {
 
   const isPlaceCommand = isPlaceCommandFirst(command.command);
   if (isPlaceCommand) {
-    const direction = command.arguments[2];
-    const correctDirection = isDirectionCorrect(direction);
-    return correctCommand && correctDirection;
+    const correctArguments = isCorrectArguments(command.arguments);
+    return correctArguments;
   }
   return correctCommand;
 };

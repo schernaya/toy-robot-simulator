@@ -9,9 +9,9 @@ const runRobotSimulator = () => {
 
   stdin.addListener('data', (data) => {
     const input = data.toString().trim().toLowerCase();
-    const listOfCommands = commandParser.parseCommandWithArguments(input);
+    const listOfCommands = commandParser.parseCommands(input);
 
-    robot.executeCommand(listOfCommands);
+    robot.executeCommands(listOfCommands);
   });
 };
 

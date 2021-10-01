@@ -4,12 +4,12 @@ import {
 
 export const isXCoordinateCorrect = (coordinate) => {
   const isXCorrect = coordinate <= TABLE_SIZE.x && coordinate >= 0;
-  return isXCorrect;
+  return isXCorrect && !isNaN(coordinate);
 };
 
 export const isYCoordinateCorrect = (coordinate) => {
   const isYCorrect = coordinate <= TABLE_SIZE.y && coordinate >= 0;
-  return isYCorrect;
+  return isYCorrect && !isNaN(coordinate);
 };
 
 export const isCoordinatesCorrect = (coordinates) => {

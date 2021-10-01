@@ -5,8 +5,6 @@ import {
 } from '../common/constants/constants.js';
 import {
   isCoordinatesCorrect,
-  isXCoordinateCorrect,
-  isYCoordinateCorrect,
 } from '../validations/index.js';
 
 class Robot {
@@ -23,14 +21,6 @@ class Robot {
   place(positionParams) {
     if (positionParams) {
       const [x, y, direction] = positionParams;
-
-      const isXCorrect = isXCoordinateCorrect(x);
-      const isYCorrect = isYCoordinateCorrect(y);
-
-      if (!isXCorrect || !isYCorrect) {
-        this.isPlaced = false;
-        return;
-      }
 
       this.position = { x, y };
       this.direction = direction;

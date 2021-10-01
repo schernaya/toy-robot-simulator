@@ -16,7 +16,7 @@ const readParseFile = (fileName, cb) => {
       return;
     }
 
-    commandParser.parseCommands(dataFromFile, cb);
+    commandParser.parseDataFromFile(dataFromFile, cb);
   });
 };
 
