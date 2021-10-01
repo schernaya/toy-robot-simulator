@@ -7,6 +7,7 @@ export {
   isCorrectCommand,
   isCorrectArguments,
   isPlaceCommandFirst,
+  hasError,
 } from './command.js';
 export {
   isCorrectExtension,

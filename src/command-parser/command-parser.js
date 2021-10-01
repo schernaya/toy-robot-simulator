@@ -3,7 +3,8 @@ import {
 } from '../constants/constants.js';
 import {
   isCorrectCommand,
-  isPlaceCommandFirst
+  isPlaceCommandFirst,
+  hasError,
 } from '../validations/index.js';
 
 class CommandParser {
@@ -20,10 +21,14 @@ class CommandParser {
       const unifiedCommandLine = commandLine.toLowerCase().replace(CHARACTERS.CARRIAGE, '');
       const parsedCommand = this.parseCommandWithArguments(unifiedCommandLine);
 
+      if (hasError(parsedCommand)) {
+        console.info(parsedCommand.message);
+      }
+
       return parsedCommand;
     });
 
-    const correctCommands = parsedCommans.filter(command => !!command);
+    const correctCommands = parsedCommans.filter(command => !(command instanceof Error));
 
     return correctCommands;
   }
@@ -40,7 +45,8 @@ class CommandParser {
       command: commandLine
     };
 
-    return isCorrectCommand(commandObject) ? commandObject : null;
+    return isCorrectCommand(commandObject) ? commandObject :
+      new Error(`The command ${commandsInLine} is incorrect`);
   }
 
   parsePlaceArguments(commandArguments) {

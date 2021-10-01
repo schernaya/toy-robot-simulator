@@ -37,3 +37,7 @@ export const isCorrectCommand = (command) => {
 export const isPlaceCommandFirst = (command) => {
   return command === COMMANDS.PLACE;
 };
+
+export const hasError = (command) => {
+  return command instanceof Error;
+};
