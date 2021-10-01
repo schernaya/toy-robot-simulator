@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { ERRORS, ENCODING } from '../common/constants/constants.js';
+import { ERRORS, ENCODING } from '../constants/constants.js';
 import { isCorrectExtension } from '../validations/index.js';
 
 class FileReader {

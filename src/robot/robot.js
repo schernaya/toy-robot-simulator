@@ -2,7 +2,7 @@ import {
   DIRECTION,
   DIRECTIONS,
   CHARACTERS
-} from '../common/constants/constants.js';
+} from '../constants/constants.js';
 import {
   isCoordinatesCorrect,
 } from '../validations/index.js';
@@ -69,13 +69,9 @@ class Robot {
     }
   }
 
-  executeCommand(command) {
-    this[command.command](command.arguments);
-  }
-
   executeCommands(commands) {
     for (const command of commands) {
-      this.executeCommand(command);
+      this[command.command](command.arguments);
     }
   }
 }

@@ -1,7 +1,7 @@
 import {
   COMMANDS,
   DIRECTIONS,
-} from '../common/constants/constants.js';
+} from '../constants/constants.js';
 import { isCoordinatesCorrect } from './robot.js';
 
 export const isCorrectArguments = (placeArguments) => {
@@ -30,6 +30,7 @@ export const isCorrectCommand = (command) => {
     const correctArguments = isCorrectArguments(command.arguments);
     return correctArguments;
   }
+
   return correctCommand;
 };
 

@@ -1,6 +1,6 @@
 import {
   TABLE_SIZE,
-} from '../common/constants/constants.js';
+} from '../constants/constants.js';
 
 export const isXCoordinateCorrect = (coordinate) => {
   const isXCorrect = coordinate <= TABLE_SIZE.x && coordinate >= 0;

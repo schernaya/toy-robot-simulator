@@ -1,6 +1,6 @@
 import {
   CHARACTERS
-} from '../common/constants/constants.js';
+} from '../constants/constants.js';
 import {
   isCorrectCommand,
   isPlaceCommandFirst
@@ -14,16 +14,16 @@ class CommandParser {
   };
 
   parseCommands(parsedLines) {
-    const parsedCommands = parsedLines.split(CHARACTERS.NEW_LINE);
+    const commands = parsedLines.split(CHARACTERS.NEW_LINE);
 
-    const commands = parsedCommands.map((commandLine) => {
+    const parsedCommans = commands.map((commandLine) => {
       const unifiedCommandLine = commandLine.toLowerCase().replace(CHARACTERS.CARRIAGE, '');
       const parsedCommand = this.parseCommandWithArguments(unifiedCommandLine);
 
       return parsedCommand;
     });
 
-    const correctCommands = commands.filter(command => !!command);
+    const correctCommands = parsedCommans.filter(command => !!command);
 
     return correctCommands;
   }
