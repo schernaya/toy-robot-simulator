@@ -1,6 +1,14 @@
-# toy-robot-simulator
 Toy Robot Simulator
 ===================
+
+To run toy robot from console enter: 
+  npm start
+
+To run toy robot from file enter:
+  node index.js *file name*
+
+To run tests enter:
+  npm test
 
 Description
 -----------
